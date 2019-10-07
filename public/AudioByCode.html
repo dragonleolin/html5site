@@ -9,6 +9,9 @@
             text-decoration: underline;
             color: blue;
         }
+        #myCanvas{
+            border:1px solid green;
+        }
     </style>
 
 
@@ -25,7 +28,7 @@
     <hr />
     <span id="playSong"></span>
     <span id="info"></span>
-
+    <canvas id="myCanvas" height="20px"></canvas>
 
     <script>
         var musics = [
@@ -45,6 +48,25 @@
             eleLi.appendChild(txtLi);
             ul.appendChild(eleLi); playlist
         }
+
+        //
+        var canvas = document.querySelector('#myCanvas');
+        var context = canvas.getContext('2d');
+        //畫筆顏色
+        context.fillStyle="green";
+        //矩形
+        //context.fillRect(0,0,300,20)
+        //w = 300px
+        // w * 10/300
+
+        //homework用Canvas加快播放進度
+        canvas.addEventListener('click',function(event){
+           // console.log(event.offsetX)
+           // event.offsetX/canvas.width
+           // audio.duration * 1/10
+           var t = audio.duration * (event.offsetX / canvas.width);
+           audio.currentTime = t;
+        })
 
         //建立Audio物件
         var audio = new Audio();
@@ -89,6 +111,10 @@
             //將撥放的音樂的進度顯示在id為info的span標籤中
             spnInfo.innerHTML = formatTime(audio.currentTime) + "/" +  m
 
+            //homework用Canvas產生播放進度條
+            context.clearRect(0,0,canvas.width,canvas.height)
+            var w = canvas.width * (audio.currentTime / audio.duration )
+            context.fillRect(0,0,w,canvas.height)
         }, false);
 
 

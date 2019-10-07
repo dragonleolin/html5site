@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>file</title>
+    <style>
+      #zone1 {
+        width: 600px;
+        height: 150px;
+        border: 1px solid green;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="file1" multiple/>
+    <div id="zone1"></div>
+
+    <script>
+      var myFile = document.querySelector("#file1");
+      myFile.addEventListener("change", function() {
+        // console.log(this.files);
+        fileInfo(this.files[0]); //this.files[0]就是File Object
+      });
+
+      function fileInfo(theFile) {
+        console.log(theFile.name); //檔案名稱
+        console.log(theFile.type); //檔案類型
+        console.log(theFile.size); //檔案大小
+        console.log(theFile.lastModifiedDate); //校正日期
+      }
+
+      //第二種從檔案總管拖曳進來的檔案
+      var theZone = document.querySelector('#zone1')
+      theZone.addEventListener('dragover', function(e){
+          e.preventDefault()
+      })
+      theZone.addEventListener('drop', function(e){
+          e.preventDefault()
+          e.stopPropagation()
+         console.log(e.dataTransfer.files[0]);
+            
+          fileInfo(e.dataTransfer.files[0]) //event.dataTransfer.files[0]就是File Object
+      })
+
+    </script>
+  </body>
+</html>
