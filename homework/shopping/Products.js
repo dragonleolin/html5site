@@ -1,5 +1,4 @@
-﻿//ajax > server > json
-var products = [{ "ProductID": 1, "ModelNumber": "AGB00104", "ModelName": "eSony Cyber-shot DSC-T5", "UnitCost": 7000.0000, "ProductImage": "AGB00104.jpg" },
+﻿var products = [{ "ProductID": 1, "ModelNumber": "AGB00104", "ModelName": "eSony Cyber-shot DSC-T5", "UnitCost": 7000.0000, "ProductImage": "AGB00104.jpg" },
                      { "ProductID": 2, "ModelNumber": "AGB00097", "ModelName": "Sony Cyber-shot DSC T7 ", "UnitCost": 12980.0000, "ProductImage": "AGB00097.jpg" },
                      { "ProductID": 3, "ModelNumber": "AGB00099", "ModelName": "SONY DSC-P200", "UnitCost": 12980.0000, "ProductImage": "AGB00099.jpg" },
                      { "ProductID": 4, "ModelNumber": "AGB00098", "ModelName": "SONY DSC-H1 ", "UnitCost": 15980.0000, "ProductImage": "AGB00098.jpg" },
@@ -49,10 +48,6 @@ for (var i = 0, max = products.length; i < max; i++) {
 
     //to do 對於eleA的div元素設定dragstart事件
     //在dragstart的事件中，透過this.id，將eleA的id存到(setData)dataTransfer物件中
-    eleA.addEventListener('dragstart',function(event){
-        //console.log(this.id)
-        event.dataTransfer.setData("text/plain",this.id)
-    })
  
 
     var eleLi = document.createElement("li");
@@ -78,40 +73,32 @@ var cart = document.getElementById("cart");
 //要將商品拖曳到購物車區
 //to do 對於cart的ul元素設定dragover事件
 //在dragover事件中，使用preventDefault()防止預設動作發生
-cart.addEventListener('dragover',function(event){
-    event.preventDefault();
-})
+
 
 //to do 對於cart的ul元素設定drop事件
 //在drop事件中，呼叫addToCart function
-cart.addEventListener('drop',addToCart)
+
 
 function addToCart(event) {
     //to do 使用preventDefault()防止預設動作發生   
-    event.preventDefault();
     //to do 使用stopPropagation()防止事件氣泡現象
-    event.stopPropagation();
   
     
     //to do 從dataTransfer物件中取出(getData)之前存進去的產品Id
     //將產品Id存放到id變數中
-    var id = event.dataTransfer.getData('text/plain')
+   
 
     //todo 讀出商品
     var item = document.querySelector('#' + id);
-    //找到item下的第一個P標籤
-    //取出此標籤的商品名稱
     var itemName = item.querySelector('p:first-Child').textContent;
     
     //判斷購物車是否已購買此項產品
     noCartItem(id, itemName);
 
-    //將購物的資料放進localStorage中儲存
-    //key:value 
-    //ProductId:{"itemName":"eSony Cyber-shot DSC-T5","price":12000,"qty":1}
+    //之後會將購物的資料放進localStorage中儲存
 }
 
-//新增購物車資料
+//顯示購物車資料
 function showCart(id) {
     var item = document.querySelector('#' + id);
     var itemName = item.querySelector('p:first-Child').textContent;

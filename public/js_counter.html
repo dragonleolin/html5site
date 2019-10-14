@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>counter</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1 id="total">0</h1>
+    <button id="add">+</button>
+    <button id="minus">-</button>
+
+    <!-- <script>
+        var total = document.querySelector('#total')
+        document.querySelector('#add').addEventListener('click', function(){
+            total.innerHTML =  parseInt(total.innerHTML) + 1
+        })
+        document.querySelector('#minus').addEventListener('click', function(){
+            total.innerHTML =  parseInt(total.innerHTML) - 1
+        })
+    
+    </script> -->
+    <script>
+      $("#add").on("click", function() {
+        $("#total").html(+$("#total").html() + 1);
+      });
+
+      $("#minus").on("click", function() {
+        $("#total").html(+$("#total").html() - 1);
+      });
+    </script>
+  </body>
+</html>
