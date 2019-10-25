@@ -48,25 +48,9 @@
             eleLi.appendChild(txtLi);
             ul.appendChild(eleLi); playlist
         }
-
-        //
-        var canvas = document.querySelector('#myCanvas');
-        var context = canvas.getContext('2d');
-        //畫筆顏色
-        context.fillStyle="green";
-        //矩形
-        //context.fillRect(0,0,300,20)
-        //w = 300px
-        // w * 10/300
-
+    
         //homework用Canvas加快播放進度
-        canvas.addEventListener('click',function(event){
-           // console.log(event.offsetX)
-           // event.offsetX/canvas.width
-           // audio.duration * 1/10
-           var t = audio.duration * (event.offsetX / canvas.width);
-           audio.currentTime = t;
-        })
+
 
         //建立Audio物件
         var audio = new Audio();
@@ -112,9 +96,7 @@
             spnInfo.innerHTML = formatTime(audio.currentTime) + "/" +  m
 
             //homework用Canvas產生播放進度條
-            context.clearRect(0,0,canvas.width,canvas.height)
-            var w = canvas.width * (audio.currentTime / audio.duration )
-            context.fillRect(0,0,w,canvas.height)
+
         }, false);
 
 

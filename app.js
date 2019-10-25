@@ -7,7 +7,7 @@ var serveIndex = require('serve-index')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var crawlerTest = require('./routes/crawlerTest')
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -21,10 +21,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//http://localhost:3000/
 app.use('/',serveIndex(path.join(__dirname, 'public')))
-// app.use('/', indexRouter);
+//app.use('/', indexRouter);
+
+//http://localhost:3000/users
 app.use('/users', usersRouter);
-app.use('/crawler', crawlerTest);
+
+//http://localhost:3000/api
+app.use('/api', apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

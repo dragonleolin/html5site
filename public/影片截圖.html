@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Audio And Video</title>
+    <style>
+      .showImg{
+        margin: 5px;
+        box-shadow: 3px 2px 4px silver;
+      }
+    </style>
+</head>
+<body>
+    <video  controls id="videoImg">
+      <source src="videos/big_buck_bunny.mp4" type="video/mp4"/>
+      <source src="videos/big_buck_bunny.ogv" type="video/ogg"/>
+      <source src="videos/big_buck_bunny.webm" type="video/webm"/>
+      <track kind="subtitles" src="videos/bunny_en.vtt" srclang="English" default>
+      <track kind="subtitles" src="videos/bunny_zhtw.vtt" srclang="Chinese" >
+    </video>
+    <hr>
+    <input type="button" value="擷取" id="capture">
+    <div id="show"></div>
+
+    <script>
+      var capture = document.querySelector('#capture')
+      var videoImg = document.querySelector('#videoImg')
+      var show = document.querySelector('#show')
+
+      capture.addEventListener('click', function(){
+        var canvas = document.createElement("canvas")
+        var context = canvas.getContext('2d')
+        canvas.setAttribute('width', '320px') //預設是300px
+        canvas.setAttribute('height', '160px') //預設是150px
+        canvas.className = 'showImg'
+        context.drawImage(videoImg, 0,0,canvas.width, canvas.height)
+        show.append(canvas)
+
+      })
+    
+    </script>
+</body>
+</html>
