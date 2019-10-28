@@ -13,6 +13,8 @@ var products = [{ "ProductID": 1, "ModelNumber": "AGB00104", "ModelName": "eSony
                      { "ProductID": 12, "ModelNumber": "AFJ00190", "ModelName": "CANON PowerShot S80 ", "UnitCost": 20900.0000, "ProductImage": "AFJ00190.jpg" },
                      { "ProductID": 14, "ModelNumber": "DGBC01-A900577YY", "ModelName": "Canon EOS 100D 雪白KIT組 公司貨", "UnitCost": 19900.0000, "ProductImage": "DGBC01-A900577YY.jpg" }];
 
+// //顯示資料
+showCart();
 
 //載入產品資料
 var eleProducts = document.querySelector("#products");
@@ -62,6 +64,9 @@ for (var i = 0, max = products.length; i < max; i++) {
 
 }
 
+
+
+
 //將數字轉成千分位
 function commafy(num) {
     num = num + "";
@@ -72,6 +77,8 @@ function commafy(num) {
     return num;
 }
 //解除千分位 value.replace(/[,]+/g,"");
+
+
 
 //購物車區
 var cart = document.getElementById("cart");
@@ -85,6 +92,7 @@ cart.addEventListener('dragover',function(event){
 //to do 對於cart的ul元素設定drop事件
 //在drop事件中，呼叫addToCart function
 cart.addEventListener('drop',addToCart)
+
 
 function addToCart(event) {
     //to do 使用preventDefault()防止預設動作發生   
@@ -102,94 +110,134 @@ function addToCart(event) {
     //找到item下的第一個P標籤
     //取出此標籤的商品名稱
     var itemName = item.querySelector('p:first-Child').textContent;
-    
+    var price = item.querySelector('p:nth-child(2)>span:nth-child(2)').firstChild.nodeValue;
     //判斷購物車是否已購買此項產品
-    noCartItem(id, itemName);
+    //noCartItem(id, itemName);
 
     //將購物的資料放進localStorage中儲存
     //key:value 
-    //ProductId:{"itemName":"eSony Cyber-shot DSC-T5","price":12000,"qty":1}
+    //ModelNumber:{"itemName":"eSony Cyber-shot DSC-T5","price":12000,"qty":1}
+
+    //JSON String vs JSON Object
+    //var obj = {"itemName":"eSony Cyber-shot DSC-T5","price":12000,"qty":1}
+    //var str = '{"itemName":"eSony Cyber-shot DSC-T5","price":12000,"qty":1}'
+    //JSON.parse(str)
+    //JSON.stringify(obj)
+
+    //如果localStorage有買過此產品
+    var theValue = localStorage.getItem(id)
+    if(theValue){
+        //數量加1
+        var product = JSON.parse(theValue)
+        var qty= product.qty + 1;
+        var item = {"itemName":product.itemName,"price":product.price,"qty":qty}
+        localStorage.setItem(id,JSON.stringify(item));
+    }else{
+        //否則就新增一筆資料到localStorage中
+        var item = {"itemName":itemName,"price":price.replace(/[,]+/g,""),"qty":1}
+        localStorage.setItem(id, JSON.stringify(item));
+    }
+    
+   //顯示資料
+   showCart()
 }
 
 //新增購物車資料
-function showCart(id) {
-    var item = document.querySelector('#' + id);
-    var itemName = item.querySelector('p:first-Child').textContent;
+function showCart() {
+    // var item = document.querySelector('#' + id);
+    // var itemName = item.querySelector('p:first-Child').textContent;
 
-    var itemPrice = item.querySelector('p:nth-child(2)>span:nth-child(2)').textContent;
-    itemPrice = itemPrice.replace(/[,]+/g, "");
+    // var itemPrice = item.querySelector('p:nth-child(2)>span:nth-child(2)').textContent;
+    // itemPrice = itemPrice.replace(/[,]+/g, "");
  
 
     var theUl = document.querySelector('#cart>ul');
+    //清除畫面上的資料
+    while(theUl.hasChildNodes()){
+        theUl.removeChild(theUl.lastChild)
+    }
+    var total =0;
+    //從localStorage中讀出資料
+    for(var i=0;i<localStorage.length; i++){
+        var keyName = localStorage.key(i);
+        if(keyName.substr(0,4)!="note"){
+            var product = JSON.parse(localStorage.getItem(keyName))
+             // console.log(product.itemName)
+                // console.log(product.price)
+                // console.log(product.qty)
+                var qty = document.createTextNode(product.qty);
+                var qtySpan = document.createElement("span");
+                qtySpan.appendChild(qty);
+                qtySpan.className = "quantity";
+            
+                var price = document.createTextNode('$' + commafy(product.price));
+                var priceSpan = document.createElement("span");
+                priceSpan.appendChild(price);
+                priceSpan.className = "price";
+            
+                var name = document.createTextNode(product.itemName);
+                var nameSpan = document.createElement("span");
+                nameSpan.appendChild(name);
+            
+                var qtyLi = document.createElement("li");
+                qtyLi.appendChild(priceSpan);
+                qtyLi.appendChild(qtySpan);
+                qtyLi.appendChild(nameSpan);
+            
+                theUl.appendChild(qtyLi);
+            
+                //總計
+                var subTotal = product.price * product.qty
+                total += subTotal;
+        }
+        document.querySelector('#total>span').firstChild.nodeValue = commafy(total)
+    }
 
-    var qty = document.createTextNode("1");
-    var qtySpan = document.createElement("span");
-    qtySpan.appendChild(qty);
-    qtySpan.className = "quantity";
-
-    var price = document.createTextNode('$' + commafy(itemPrice));
-    var priceSpan = document.createElement("span");
-    priceSpan.appendChild(price);
-    priceSpan.className = "price";
-
-    var name = document.createTextNode(itemName);
-    var nameSpan = document.createElement("span");
-    nameSpan.appendChild(name);
-
-    var qtyLi = document.createElement("li");
-    qtyLi.appendChild(priceSpan);
-    qtyLi.appendChild(qtySpan);
-    qtyLi.appendChild(nameSpan);
-
-    theUl.appendChild(qtyLi);
-
-    total();
-   
 }
 
 //修改購買數量
-function updateCart(item) {
-    //更新購買數量
-    var qty = parseInt(item.previousSibling.firstChild.nodeValue) + 1;
-    item.previousSibling.firstChild.nodeValue = qty;
+// function updateCart(item) {
+//     //更新購買數量
+//     var qty = parseInt(item.previousSibling.firstChild.nodeValue) + 1;
+//     item.previousSibling.firstChild.nodeValue = qty;
 
-    //重新計算
-    total();
+//     //重新計算
+//     total();
 
-}
+// }
 
 //判斷購物車是否有此項產品
-function noCartItem(id, itemName) {
-    var items = document.querySelectorAll('#cart>ul>li');
-    var flag = true;
-    for (var i = 0, max = items.length; i < max; i++) {
-        //找到產品名稱
-        var item = items[i].querySelector('span:nth-child(3)'); //document.querySelector('#cart>ul>li>span:nth-child(3)');
-        //判斷購物車是否有此項產品
-        if (itemName == item.firstChild.nodeValue) {
-            //如果有就更新數量
-            updateCart(item);
-            flag = false;
-            break;
-        }
-    }
-    if (flag) {
-        //如果沒有就將此產品新增到購物車
-        showCart(id);
-    }
+// function noCartItem(id, itemName) {
+//     var items = document.querySelectorAll('#cart>ul>li');
+//     var flag = true;
+//     for (var i = 0, max = items.length; i < max; i++) {
+//         //找到產品名稱
+//         var item = items[i].querySelector('span:nth-child(3)'); //document.querySelector('#cart>ul>li>span:nth-child(3)');
+//         //判斷購物車是否有此項產品
+//         if (itemName == item.firstChild.nodeValue) {
+//             //如果有就更新數量
+//             updateCart(item);
+//             flag = false;
+//             break;
+//         }
+//     }
+//     if (flag) {
+//         //如果沒有就將此產品新增到購物車
+//         showCart(id);
+//     }
 
-}
+// }
 
 //計算購物車購買總價
-function total() {
-    var items = document.querySelectorAll('#cart>ul>li');
-    var total = 0;
-    for (var i = 0, max = items.length; i < max; i++) {
-        var price = items[i].querySelector('span:nth-child(1)').firstChild.nodeValue.split('$')[1];
-        price = price.replace(/[,]+/g,"")
-        var qty = items[i].querySelector('span:nth-child(2)').firstChild.nodeValue;        
-        total = total + (price * qty);
-    }
+// function total() {
+//     var items = document.querySelectorAll('#cart>ul>li');
+//     var total = 0;
+//     for (var i = 0, max = items.length; i < max; i++) {
+//         var price = items[i].querySelector('span:nth-child(1)').firstChild.nodeValue.split('$')[1];
+//         price = price.replace(/[,]+/g,"")
+//         var qty = items[i].querySelector('span:nth-child(2)').firstChild.nodeValue;        
+//         total = total + (price * qty);
+//     }
 
-    document.querySelector('#total>span').firstChild.nodeValue = commafy(total);
-}
+//     document.querySelector('#total>span').firstChild.nodeValue = commafy(total);
+// }

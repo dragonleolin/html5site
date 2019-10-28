@@ -6,6 +6,7 @@
     <title></title>
     <script>
         if (!window.indexedDB) {
+            //moz前綴詞是firebox、web是指chrome
             window.indexedDB = window.mozIndexedDB || window.webkitIndexedDB;
         }
         var db = null;
@@ -244,7 +245,7 @@
 </head>
 
 <body>
-    <input type="button" value="建立資料庫" id="buttonCreateDB" disabled />
+    <input type="button" value="建立資料庫" id="buttonCreateDB" />
     <input type="button" value="刪除資料庫" id="buttonDeleteDB" />
     <input type="button" value="建立ObjectStore" id="buttonCreateOS" />
     <input type="button" value="刪除ObjectStore" id="buttonDeleteOS" />

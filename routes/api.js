@@ -5,6 +5,7 @@ var fs = require("fs");
 const request = require('request');
 const zlib = require('zlib');
 
+//====跟檔案上傳有關====
 var uploadFolder = 'public/uploads/';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -74,24 +75,15 @@ router.get('/youbike',function(req,res,next){
     'Connection': 'keep-alive'
 });
 setInterval(function(){
-  // 要求http://data.taipei/youbike的資料
-  // http://data.taipei/youbike回傳的資料，透過body參數來接收
-  request('http://data.taipei/youbike',{'encoding':null},function(err,response,body){
-  // 透過zlib解壓縮gz  
-  zlib.gunzip(body,function(err, dezipped){
-      //console.log(dezipped.toString())
-      if(dezipped){
-         res.write("data: " + dezipped.toString() + '\n\n');  
-      }      
-    });
+  // 要求http://data.taipei/youbike的資料 
+ // https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json
+ request('https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json',{'encoding':null},function(err,response,body){
+      res.write("data: " + body + '\n\n');  
+
   })
 },60000)
-request('http://data.taipei/youbike',{'encoding':null},function(err,response,body){
-  // 透過zlib解壓縮gz  
-  zlib.gunzip(body,function(err, dezipped){
-      //console.log(dezipped.toString())
-      res.write("data: " + dezipped.toString() + '\n\n');   
-    });
+request('https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json',{'encoding':null},function(err,response,body){
+  res.write("data: " + body + '\n\n')
   })
   
 })
