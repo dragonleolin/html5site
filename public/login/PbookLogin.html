@@ -5,19 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Login</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <style>
-      .container-login {
+      body{
+        position: relative;
+      }
+      .row{
+        display: flex;
+        flex-direction: row;
+      }
+      .column{
+        display: flex;
+        flex-direction: column;
+      }
+      .container_login h2 {
+        font-weight: bold;
+        text-align: center;
+        /* border: 1px solid blue; */
+      }
+
+      .container_login p {
+        font-size: 14px;
+        font-weight: 100;
+        line-height: 20px;
+        letter-spacing: 0.5px;
+        margin: 20px 0 30px;
+      }
+
+      .container_login span {
+        font-size: 12px;
+      }
+
+      .container_login a {
+        color: #333;
+        font-size: 14px;
+        text-decoration: none;
+        margin: 15px 0;
+      }
+      .login_btn {
+        border-radius: 20px;
+        border: 1px solid #6c5b7b;
+        background-color: #6c5b7b;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 12px 45px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in;
+        margin-top: 20px;
+      }
+
+      .login_btn:active {
+        transform: scale(0.95);
+      }
+
+      .login_btn:focus {
+        outline: none;
+      }
+
+      .login_btn.ghost {
+        background-color: transparent;
+        border-color: #ffffff;
+      }
+      .login_input {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      .container_login {
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
           0 10px 10px rgba(0, 0, 0, 0.22);
-        position: relative;
         overflow: hidden;
         width: 768px;
         max-width: 100%;
-        min-height: 480px;
+        min-height: 600px;
+        border: 5px solid #000000;
+        position: absolute;
+        left: 400px;
+        top: 120px;
       }
-      form {
+      .container_login form {
         background-color: #ffffff;
         display: flex;
         align-items: center;
@@ -31,43 +115,93 @@
         position: absolute;
         top: 0;
         height: 100%;
+        width: 50%;
         transition: all 0.6s ease-in-out;
+        border: 1px solid red;
+      }
+      .login_title{
+        display: flex;
+        /* width: 100%; */
+        padding-top: 20px;
+        padding-bottom: 10px;
+        /* border: 1px solid blue; */
+      }
+
+      .social-container {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 0;
+
+      }
+
+      .social-container a {
+        border: 1px solid #dddddd;
+        /* border-radius: 50%; */
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 5px;
+        height: 40px;
+        width: 200px;
       }
     </style>
   </head>
   <body>
-    <div class="container-login">
-      <div class="form-container sign-in-container">
+    <div class="container_login">
+      <div class="form-container sign-up-container">
         <form action="#">
-          <h1>Sign In</h1>
-          <span>or use your account</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <a href="#">Forgot your password?</a>
-          <button>Sign In</button>
+          <h1>Create Account</h1>
           <div class="social-container">
             <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
             <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
           </div>
+          <span>or use your email for registration</span>
+          <input class="login_input" type="text" placeholder="Name" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button>Sign Up</button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="#">
+          <div class="login_title">
+            <img src="./icon_MR_m.svg" alt="" style="width:30px;">
+            <h2>品書人登入</h2>
+          </div>
+          <!-- <span>or use your account</span> -->
+          <input class="login_input" type="email" placeholder="Email" />
+          <input class="login_input" type="password" placeholder="Password" />
+          <button class="login_btn">登入</button>
+          <a href="#">Forgot your password?</a>
+          <div class="social-container">
+            <div>
+              快速登入
+            </div>
+              <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social"
+                ><i class="fab fa-google-plus-g"></i
+              ></a>
+           
+          </div>
         </form>
       </div>
       <div class="overlay-container">
-            <div class="overlay">
-              <div class="overlay-panel overlay-right">
-                <h1>Welcome Back!</h1>
-                <p>
-                  To keep connected with us please login with your personal info
-                </p>
-                <button class="ghost" id="signIn">Sign In</button>
-              </div>
-              <div class="overlay-panel overlay-left">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
-              </div>
-            </div>
+        <div class="overlay">
+          <div class="overlay-panel overlay-right">
+            <h1>Welcome Back!</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <button class="ghost" id="signIn">Sign In</button>
           </div>
+          <div class="overlay-panel overlay-left">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
