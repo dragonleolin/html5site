@@ -52,16 +52,15 @@
       }
       .login_btn {
         border-radius: 20px;
-        border: 1px solid #6c5b7b;
-        background-color: #6c5b7b;
+        border: 1px solid #979D9D;
+        background-color: #979D9D;
         color: #ffffff;
         font-size: 12px;
         font-weight: bold;
         padding: 12px 45px;
         letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: transform 80ms ease-in;
         margin-top: 20px;
+
       }
 
       .login_btn:active {
@@ -92,12 +91,13 @@
           0 10px 10px rgba(0, 0, 0, 0.22);
         overflow: hidden;
         width: 1100px;
-        max-width: 100%;
-        min-height: 700px;
+        /* max-width: 100%; */
+        height: 700px;
         /* border: 5px solid #000000; */
         position: absolute;
         left: 400px;
         top: 120px;
+        transform-style: preserve-3d;
       }
       .container_login form {
         background-color: #ffffff;
@@ -132,13 +132,26 @@
         min-height: 700px;
         width: 50%;
         position: absolute;
+        top: 0;
         right: 0;
         /* border: 1px solid red; */
+        transform: translateX(0);
+        transition: transform 0.6s ease-in-out;
       }
       .container_left{
         min-height: 700px;
         width: 50%;
         position: absolute;
+        top: 0;
+        left: 0;
+        /* border-right: #000; */
+        border: 1px solid rgb(230, 222, 222);
+      }
+      .container_mid{
+        min-height: 700px;
+        width: 50%;
+        position: absolute;
+        top: 0;
         left: 0;
         /* border-right: #000; */
         border: 1px solid rgb(230, 222, 222);
@@ -169,24 +182,52 @@
         width: 200px;
       }
 
-      .signIn_back{
+      ._center{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         /* border: 1px solid red; */
+        
+      }
+      
+      .signUp{
+          transform: scale(-1, 1);
       }
 
+       @keyframes flip-to-right {
+        from {
+            transform: rotateY(-180deg);
+        }
+        to {
+            transform: rotateY(0);
+        }
+      }
+      .container_mid {
+          transform-origin: right center;
+          animation: flip-to-right 2s ease-in-out;
+      }
 
-
-
+      .container_login,
+      .container_login[data-right] {
+          display: block;
+          z-index: 1;
+      }
+      .container_login[data-right] {
+          left: auto;
+          left: 0;
+      }
+      /* 把相邻的paper显示出来 */
+      .container_login[data-left] + .container_login {
+          display: block;
+      } 
 
     </style>
   </head>
   <body>
     <div class="container_login">
       <div class="form-container">
-        <!-- <form action="#" class="container_left signUp">
+        <form action="#" class="container_mid signUp" data-right>
             <div class="login_title">
                 <img src="./icon_MR_m.svg" alt="" style="width:30px;">
                 <h2>品書人註冊</h2>
@@ -200,40 +241,75 @@
           <input class="login_input" type="text" placeholder="輸入驗證碼" />
           <button type="button" class="singUp_btn">確認</button>
           <button type="button" class="singUp_btn">取消</button>
-        </form> -->
-          <div class="container_left signIn_back">
-              <img src="./品書logo.png" alt="" style="width:120px;">
-              <button class="login_btn" id="signUp">品書人註冊</button>
-          </div>
+        </form>
+        <form action="#" class="container_right signIn" >
+            <div class="login_title">
+              <img src="./icon_MR_m.svg" alt="" style="width:30px;">
+              <h2>品書人登入</h2>
+            </div>
+            <span>or use your account</span>
+            <input class="login_input" type="email" placeholder="Email" />
+            <input class="login_input" type="password" placeholder="Password" />
+            <button class="login_btn">登入</button>
+            <a href="#">Forgot your password?</a>
+            <div class="social-container">
+              <div>
+                快速登入
+              </div>
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"
+                  ><i class="fab fa-google-plus-g"></i
+                ></a>
+            </div>
+          </form>
       </div>
       
-      <!-- <div class="form-container"> -->
-        <!-- <form action="#" class="container_right signIn">
-          <div class="login_title">
-            <img src="./icon_MR_m.svg" alt="" style="width:30px;">
-            <h2>品書人登入</h2>
+      <div class="form-container">
+          <div class="container_mid _center" data-left>
+              <img src="./品書logo.png" alt="" style="width:120px;">
+              <h4 style="margin: 10px;">還沒有帳號就快來加入品書人行列</h4>
+              <button class="login_btn" id="signUp">品書人註冊</button>
           </div>
-          <span>or use your account</span>
-          <input class="login_input" type="email" placeholder="Email" />
-          <input class="login_input" type="password" placeholder="Password" />
-          <button class="login_btn">登入</button>
-          <a href="#">Forgot your password?</a>
-          <div class="social-container">
-            <div>
-              快速登入
-            </div>
-              <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" class="social"
-                ><i class="fab fa-google-plus-g"></i
-              ></a>
-          </div>
-        </form> -->
-          <!-- <div class="container_right signIn_back">
+          <div class="container_left _center">
             <img src="./品書logo.png" alt="" style="width:120px;">
             <button class="login_btn" id="signUp">品書人登入</button>
-          </div>  -->
-      <!-- </div> -->
+          </div> 
+      </div>
       </div>
     </div>
+
+    <script>
+      // let currentPage = 1;
+      //   let $ = document.querySelector.bind(document);
+      //   $('#next-page').addEventListener('click', goToNextPage);
+      //   const flipAnimateTime = 1000;
+      //   function goToNextPage () {
+      //       // 触发CSS动画
+      //       $('.paper[data-right]').setAttribute('data-begin-animate', true);
+      //       setTimeout(() => {
+      //           // data-right变成data-left
+      //           let $rightPaper = $('.paper[data-right]'),
+      //               $leftPaper = $('.paper[data-left]');
+      //           $rightPaper.removeAttribute('data-right');
+      //           $rightPaper.setAttribute('data-left', true);
+      //           // data-left没有了
+      //           $leftPaper.removeAttribute('data-left');
+      //           $leftPaper.querySelector('.page-1').classList.remove('page-1');
+      //           $leftPaper.querySelector('.page-1-back').classList.remove('page-1-back');
+      //           // 重新设置类的关系
+      //           $leftPaper = $rightPaper;
+      //           $rightPaper = $leftPaper.nextElementSibling;
+      //           $leftPaper.querySelector('.page').classList.add('page-1-back');
+      //           $leftPaper.querySelector('.page + .page').classList.add('page-1');
+      //           // 如果还有下一页
+      //           if ($rightPaper) {
+      //               $rightPaper.setAttribute('data-right', true);
+      //               $rightPaper.querySelector('.page').classList.add('page-2');
+      //               $rightPaper.querySelector('.page + .page').classList.add('page-2-back');
+      //           }   
+      //           currentPage++;
+      //       }, flipAnimateTime);
+      //   }
+    </script>
   </body>
 </html>
