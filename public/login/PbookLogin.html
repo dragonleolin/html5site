@@ -97,7 +97,6 @@
         position: absolute;
         left: 400px;
         top: 120px;
-        transform-style: preserve-3d;
       }
       .container_login form {
         background-color: #ffffff;
@@ -147,7 +146,7 @@
         /* border-right: #000; */
         border: 1px solid rgb(230, 222, 222);
       }
-      .container_mid{
+      .container_back{
         min-height: 700px;
         width: 50%;
         position: absolute;
@@ -155,6 +154,18 @@
         left: 0;
         /* border-right: #000; */
         border: 1px solid rgb(230, 222, 222);
+        /* transform-style: preserve-3d; */
+        opacity: 0;
+      }
+      .container_front{
+        min-height: 700px;
+        width: 50%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        /* border-right: #000; */
+        border: 1px solid rgb(230, 222, 222);
+        z-index: 1;
       }
       .login_title{
         display: flex;
@@ -191,8 +202,8 @@
         
       }
       
-      .signUp{
-          transform: scale(-1, 1);
+      ._opacity{
+        opacity: 0;
       }
 
        @keyframes flip-to-right {
@@ -203,31 +214,35 @@
             transform: rotateY(0);
         }
       }
-      .container_mid {
+      .flip-to-right {
           transform-origin: right center;
-          animation: flip-to-right 2s ease-in-out;
+          animation: flip-to-right 2s ease-in-out forwards;
+          opacity: 1;
+          z-index: 2;
       }
 
-      .container_login,
-      .container_login[data-right] {
-          display: block;
-          z-index: 1;
+      @keyframes flip-to-left {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(180);
+        }
       }
-      .container_login[data-right] {
-          left: auto;
-          left: 0;
+      .flip-to-left {
+          transform-origin: right center;
+          animation: flip-to-left 2s ease-in-out forwards;
+          opacity: 1;
+          z-index: 2;
       }
-      /* 把相邻的paper显示出来 */
-      .container_login[data-left] + .container_login {
-          display: block;
-      } 
+
 
     </style>
   </head>
   <body>
     <div class="container_login">
       <div class="form-container">
-        <form action="#" class="container_mid signUp" data-right>
+        <form action="#" class="container_back">
             <div class="login_title">
                 <img src="./icon_MR_m.svg" alt="" style="width:30px;">
                 <h2>品書人註冊</h2>
@@ -242,7 +257,7 @@
           <button type="button" class="singUp_btn">確認</button>
           <button type="button" class="singUp_btn">取消</button>
         </form>
-        <form action="#" class="container_right signIn" >
+        <form action="#" class="container_front">
             <div class="login_title">
               <img src="./icon_MR_m.svg" alt="" style="width:30px;">
               <h2>品書人登入</h2>
@@ -264,52 +279,38 @@
           </form>
       </div>
       
-      <div class="form-container">
-          <div class="container_mid _center" data-left>
+      <div class="form-container" data-left>
+          <div class="container_left _center" >
               <img src="./品書logo.png" alt="" style="width:120px;">
               <h4 style="margin: 10px;">還沒有帳號就快來加入品書人行列</h4>
-              <button class="login_btn" id="signUp">品書人註冊</button>
+              <button class="login_btn" id="signIn">品書人註冊</button>
           </div>
-          <div class="container_left _center">
+        </div>
+        <div class="form-container">
+          <div class="container_right _center" >
             <img src="./品書logo.png" alt="" style="width:120px;">
             <button class="login_btn" id="signUp">品書人登入</button>
           </div> 
-      </div>
+        </div>
       </div>
     </div>
 
     <script>
-      // let currentPage = 1;
-      //   let $ = document.querySelector.bind(document);
-      //   $('#next-page').addEventListener('click', goToNextPage);
-      //   const flipAnimateTime = 1000;
-      //   function goToNextPage () {
-      //       // 触发CSS动画
-      //       $('.paper[data-right]').setAttribute('data-begin-animate', true);
-      //       setTimeout(() => {
-      //           // data-right变成data-left
-      //           let $rightPaper = $('.paper[data-right]'),
-      //               $leftPaper = $('.paper[data-left]');
-      //           $rightPaper.removeAttribute('data-right');
-      //           $rightPaper.setAttribute('data-left', true);
-      //           // data-left没有了
-      //           $leftPaper.removeAttribute('data-left');
-      //           $leftPaper.querySelector('.page-1').classList.remove('page-1');
-      //           $leftPaper.querySelector('.page-1-back').classList.remove('page-1-back');
-      //           // 重新设置类的关系
-      //           $leftPaper = $rightPaper;
-      //           $rightPaper = $leftPaper.nextElementSibling;
-      //           $leftPaper.querySelector('.page').classList.add('page-1-back');
-      //           $leftPaper.querySelector('.page + .page').classList.add('page-1');
-      //           // 如果还有下一页
-      //           if ($rightPaper) {
-      //               $rightPaper.setAttribute('data-right', true);
-      //               $rightPaper.querySelector('.page').classList.add('page-2');
-      //               $rightPaper.querySelector('.page + .page').classList.add('page-2-back');
-      //           }   
-      //           currentPage++;
-      //       }, flipAnimateTime);
-      //   }
+      const signUpButton = document.getElementById('signUp');
+      const signInButton = document.getElementById('signIn');
+      const container_back = document.querySelector('.container_back');
+      const container_front = document.querySelector('.container_front');
+
+
+      signInButton.addEventListener('click', () => {
+        container_back.classList.add('flip-to-right');
+        container_back.classList.add('_opacity');
+        container_front.classList.add('_opacity');
+      });
+
+      signUpButton.addEventListener('click', () => {
+        container_front.removeAttribute('_opacity');
+      });
     </script>
   </body>
 </html>
