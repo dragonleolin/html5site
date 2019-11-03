@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        /* font-family: 'Noto Sans Tc', sans-serif; */
+      }
+      body {
+        /* background: #562870; */
+      }
+      .wrap {
+        height: 80px;
+        padding: 10px 0;
+        background-color: #cde2d0;
+        box-shadow: 0px 5px 5px rgba(194, 212, 171, 0.5);
+        font-size: 24px;
+        font-family: Arial, Helvetica, sans-serif;
+        /* border: 1px solid #000; */
+      }
+      .wrap ol {
+        background-color: #cde2d0;
+      }
+      .breadcrumb {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        color: #2d3a3a;
+        /* border: 1px solid #000; */
+      }
+      .breadcrumb li {
+        padding: 0 20px;
+      }
+      .breadcrumb a {
+        text-decoration: none;
+        color: #2d3a3a;
+      }
+      .breadcrumb a:hover,
+      .breadcrumb li:last-child a {
+        color: #ffc408;
+      }
+      .breadcrumb li + li {
+        padding-left: 0;
+      }
+      .breadcrumb li + li::before {
+        content: ">";
+        color: #2d3a3a;
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div className="wrap">
+      <ol className="breadcrumb">
+        <li><a href="">Home</a></li>
+        <li><a href="">CSS</a></li>
+        <li><a href="">breadcrumb</a></li>
+        <li><a href="">React</a></li>
+        <li><a href="">Node</a></li>
+        <li><a href="">MySql</a></li>
+      </ol>
+    </div>
+  </body>
+</html>

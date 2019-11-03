@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        html, body{
+            height: 100%;
+        }
+        body{
+            /* background-color: #546377; */
+        }
+        .side-menu{
+            width: 320px;
+            height: 100%;
+            padding: 30px 0;
+            box-sizing: border-box;
+            background-color:#CDE2E0;
+            /* opacity: .5; */
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0px 10px #9CC5A1;
+        }
+        /* ---------------------------------------------------
+            MEDIAQUERIES
+        ----------------------------------------------------- */
+
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+           .sidebar.active {
+                margin-left: 0;
+            }
+            .sidebarCollapse span {
+                display: none;
+            }
+        }
+        .side-menu form{
+            display: flex;
+            margin: 0 10px;
+            border-radius: 100px;
+            border: 1px solid #fff
+        }
+        .side-menu form input, 
+        .side-menu form button{
+            border: none;
+            background-color: transparent;
+            color: #fff;
+            padding: 5px 10px;
+            
+        }
+        .side-menu form input{
+            width: 230px;
+        }
+        .side-menu form button{
+            width: 50px;
+        }
+        .side-menu form input:focus, 
+        .side-menu form button:focus{
+            /* 有焦點不要有外框 */
+            outline: none;
+        }
+        .sidebar ul{
+            display: block;
+            padding: 10px;
+            color: #2A3A3A;
+            text-decoration: none;
+            position: relative;
+        }
+        .sidebar ul + ul:before{
+            content: "";
+            position: absolute;
+            border-top: 1px solid #fff;
+            left: 10px;
+            right: 10px;
+            top: 0;
+        }
+        .sidebar ul .fa{
+            margin-right: -1.1em;
+            transform: scale(0);
+            transition: .3s;
+        }
+        .sidebar ul:hover .fa{
+            margin-right: 0em;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+    <div class="side-menu">
+        <nav class="sidebar">
+           <ul class="list-unstyled components">
+               <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">修改資料</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">修改密碼</a>
+                        </li>
+                    </ul>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">修改密碼</a>
+                        </li>
+                    </ul>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">修改密碼</a>
+                        </li>
+                    </ul>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">修改密碼</a>
+                        </li>
+                    </ul>
+               </li>
+               <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+           </ul>
+        </nav>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
